@@ -2,9 +2,6 @@
 
 const toggleBtn = document.getElementById('dark-mode-toggle');
 const body = document.body;
-const audio = document.getElementById('bg-audio');
-
-audio.volume = 0.2;
 
 // Load saved mode from localStorage
 if(localStorage.getItem('darkMode') === 'enabled') {
