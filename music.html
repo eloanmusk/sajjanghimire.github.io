@@ -58,7 +58,7 @@
     <div class="overlay-icon" id="icon">▶️</div>
   </div>
 
-  <div class="title">Drake - <strong>Not You Too</strong></div>
+  <div class="title">Drake - <strong>Wu-Tang Forever</strong></div>
 
   <audio id="player">
     <source src="Wtang.mp3" type="audio/mpeg">
@@ -69,7 +69,8 @@
     const audio = document.getElementById('player');
     const cover = document.getElementById('cover');
     const icon = document.getElementById('icon');
-
+    audio.volume = 0.3;
+    
     let angle = 0;
     let lastTime = null;
     let spinning = false;
