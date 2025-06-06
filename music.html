@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NotYouToo - Spinning Album Cover</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    .player-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .album {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      border: 5px solid #444;
+      cursor: pointer;
+    }
+
+    .overlay-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 60px;
+      color: rgba(255, 255, 255, 0.8);
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .hidden {
+      opacity: 0;
+    }
+
+    .title {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="player-container">
+    <img src="ntws.jpg" alt="Album Cover" class="album" id="cover">
+    <div class="overlay-icon" id="icon">▶️</div>
+  </div>
+
+  <div class="title">Drake - <strong>Not You Too</strong></div>
+
+  <audio id="player">
+    <source src="Wtang.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const audio = document.getElementById('player');
+    const cover = document.getElementById('cover');
+    const icon = document.getElementById('icon');
+
+    let angle = 0;
+    let lastTime = null;
+    let spinning = false;
+
+    function rotate(timestamp) {
+      if (!spinning) return;
+
+      if (!lastTime) lastTime = timestamp;
+      const delta = timestamp - lastTime;
+      lastTime = timestamp;
+
+      angle += delta * 0.03;
+      angle %= 360;
+
+      cover.style.transform = `rotate(${angle}deg)`;
+      requestAnimationFrame(rotate);
+    }
+
+    function updateIcon() {
+      if (audio.paused) {
+        icon.textContent = '▶️';
+        icon.classList.remove('hidden');
+      } else {
+        icon.textContent = '⏸️';
+        icon.classList.add('hidden');
+      }
+    }
+
+    cover.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+
+    audio.addEventListener('play', () => {
+      spinning = true;
+      lastTime = null;
+      requestAnimationFrame(rotate);
+      updateIcon();
+    });
+
+    audio.addEventListener('pause', () => {
+      spinning = false;
+      updateIcon();
+    });
+
+    audio.addEventListener('ended', () => {
+      spinning = false;
+      updateIcon();
+    });
+  </script>
+
+</body>
+</html>
