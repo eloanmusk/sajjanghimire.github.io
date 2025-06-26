@@ -1,130 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>For All The Dogs</title>
+  <meta charset="UTF-8" />
+  <title>Lyrics Sync</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       background: #111;
-      color: #fff;
+      color: white;
       font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 50px;
+      height: 100vh;
+      display: flex;
+      flex-direction: row;
+      overflow: hidden;
     }
 
-    .player-container {
+    .left {
+      flex: 0 0 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      background: #111;
+    }
+
+    .left img {
+      width: 100%;
+      max-width: 400px;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.7);
+    }
+
+    .right {
+      flex: 1;
       position: relative;
-      display: inline-block;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      background: linear-gradient(to bottom, #111 0%, #222 100%);
     }
 
-    .album {
-      width: 250px;
-      height: 250px;
-      border-radius: 50%;
-      border: 5px solid #444;
-      cursor: pointer;
+    #lyricsContainer {
+      position: relative;
+      width: 100%;
+      height: 60%;
+      overflow: hidden;
+    }
+
+    .lyrics-line {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      font-size: 1.2em;
+      color: gray;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.5s ease;
+      padding: 5px 20px;
+    }
+
+    .prev {
+      opacity: 0.5;
+      transform: translateY(-40px);
+    }
+
+    .next {
+      opacity: 0.5;
+      transform: translateY(40px);
+    }
+
+    .active {
+      opacity: 1;
+      color: white;
+      font-size: 1.8em;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      transform: translateY(0);
+    }
+
+    .bottom-controls {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
     }
 
     .overlay-icon {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 60px;
-      color: rgba(255, 255, 255, 0.8);
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .hidden {
-      opacity: 0;
-    }
-
-    .title {
-      margin-top: 20px;
-      font-size: 1.2rem;
-      color: #ccc;
+      font-size: 40px;
+      color: #fff;
+      cursor: pointer;
     }
 
     audio {
       display: none;
     }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .left, .right {
+        flex: unset;
+        width: 100%;
+        height: 50%;
+      }
+      .left img {
+        max-width: 90%;
+      }
+      .active {
+        font-size: 1.4em;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <div class="player-container">
-    <img src="fatd.png" alt="Album Cover" class="album" id="cover">
-    <div class="overlay-icon" id="icon">▶️</div>
+  <div class="left">
+    <img src="fatd.png" alt="Album Art">
   </div>
 
-  <div class="title"><strong>Rich Baby Daddy</strong></div>
-
-  <audio id="player">
-    <source src="rich.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-  <div>
-    <h4><a href="https://www.youtube.com/watch?v=WGZgIkU3Lqs&list=PLUsvYjVIXSJWIbwCBIX-lsZYDNOusQfre&index=2" target="_blank" >Looksmaxxing Playlist</a></h4>
+  <div class="right">
+    <div id="lyricsContainer"></div>
+    <div class="bottom-controls">
+      <span class="overlay-icon" id="toggle">▶</span>
+    </div>
   </div>
+
+  <audio id="audio" src="rich.mp3"></audio>
+
   <script>
-    const audio = document.getElementById('player');
-    const cover = document.getElementById('cover');
-    const icon = document.getElementById('icon');
-    audio.volume = 0.3;
-    
-    let angle = 0;
-    let lastTime = null;
-    let spinning = false;
+    const audio = document.getElementById('audio');
+    const toggleBtn = document.getElementById('toggle');
+    const lyricsContainer = document.getElementById('lyricsContainer');
+    let lyrics = [];
+    let currentIndex = 0;
 
-    function rotate(timestamp) {
-      if (!spinning) return;
-
-      if (!lastTime) lastTime = timestamp;
-      const delta = timestamp - lastTime;
-      lastTime = timestamp;
-
-      angle += delta * 0.03;
-      angle %= 360;
-
-      cover.style.transform = `rotate(${angle}deg)`;
-      requestAnimationFrame(rotate);
-    }
-
-    function updateIcon() {
-      if (audio.paused) {
-        icon.textContent = '▶️';
-        icon.classList.remove('hidden');
-      } else {
-        icon.textContent = '⏸️';
-        icon.classList.add('hidden');
-      }
-    }
-
-    cover.addEventListener('click', () => {
+    // Toggle play/pause
+    toggleBtn.addEventListener('click', () => {
       if (audio.paused) {
         audio.play();
+        toggleBtn.textContent = '⏸';
       } else {
         audio.pause();
+        toggleBtn.textContent = '▶';
       }
     });
 
-    audio.addEventListener('play', () => {
-      spinning = true;
-      lastTime = null;
-      requestAnimationFrame(rotate);
-      updateIcon();
+    // Load .lrc file
+    fetch('mmm.lrc')
+      .then(res => res.text())
+      .then(text => {
+        lyrics = text.split('\n').map(line => {
+          const match = line.match(/\[(\d+):(\d+).(\d+)\](.*)/);
+          if (!match) return null;
+          const time = parseInt(match[1]) * 60 + parseInt(match[2]) + parseInt(match[3]) / 100;
+          const text = match[4].trim();
+          const div = document.createElement('div');
+          div.className = 'lyrics-line';
+          div.textContent = text;
+          lyricsContainer.appendChild(div);
+          return { time, element: div };
+        }).filter(Boolean);
+      });
+
+    audio.addEventListener('timeupdate', () => {
+      const currentTime = audio.currentTime;
+      for (let i = 0; i < lyrics.length; i++) {
+        if (currentTime >= lyrics[i].time && (!lyrics[i + 1] || currentTime < lyrics[i + 1].time)) {
+          if (currentIndex !== i) {
+            updateLyrics(i);
+            currentIndex = i;
+          }
+          break;
+        }
+      }
     });
 
-    audio.addEventListener('pause', () => {
-      spinning = false;
-      updateIcon();
-    });
-
-    audio.addEventListener('ended', () => {
-      spinning = false;
-      updateIcon();
-    });
+    function updateLyrics(index) {
+      lyrics.forEach((line, i) => {
+        line.element.classList.remove('active', 'prev', 'next');
+        line.element.style.top = '50%';
+        if (i === index) {
+          line.element.classList.add('active');
+        } else if (i === index - 1) {
+          line.element.classList.add('prev');
+        } else if (i === index + 1) {
+          line.element.classList.add('next');
+        } else {
+          line.element.style.top = '-9999px'; // Hide others
+        }
+      });
+    }
   </script>
 
 </body>
