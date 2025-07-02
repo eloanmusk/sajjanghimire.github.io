@@ -11,22 +11,50 @@
     }
 
     body {
-      background: #111;
-      color: white;
       font-family: Arial, sans-serif;
       height: 100vh;
       display: flex;
       flex-direction: row;
       overflow: hidden;
+      position: relative;
+      background: #000;
+    }
+
+    /* Shared blurred background */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('darklane.png');
+      background-size: cover;
+      background-position: center;
+      filter: blur(40px) brightness(0.3);
+      z-index: -2;
+    }
+
+    /* Black overlay to darken everything */
+    body::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: -1;
     }
 
     .left {
       flex: 0 0 50%;
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 30px;
-      background: #00000044;
+      overflow: hidden;
+    }
+
+    /* Remove background blur and overlays from .left */
+    .left::before,
+    .left::after {
+      display: none;
     }
 
     .left img {
@@ -35,7 +63,9 @@
       aspect-ratio: 1/1;
       object-fit: cover;
       border-radius: 20px;
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 0 40px rgba(0,0,0,0.8);
+      z-index: 2;
+      position: relative;
     }
 
     .right {
@@ -46,51 +76,52 @@
       justify-content: center;
       align-items: center;
       padding: 30px;
-      background: linear-gradient(to bottom, #111 0%, #222 100%);
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.6);
     }
 
-#lyricsContainer {
-  position: relative;
-  width: 100%;
-  height: 60%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+    #lyricsContainer {
+      position: relative;
+      width: 100%;
+      height: 60%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
+    .lyrics-line {
+      width: 100%;
+      text-align: center;
+      font-size: 1.2em;
+      color: gray;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+      padding: 10px 20px;
+      display: none;
+    }
 
+    .prev,
+    .next {
+      display: block;
+      opacity: 0.5;
+      font-size: 1em;
+      transform: translateY(0);
+      color: #aaa;
+    }
 
-.lyrics-line {
-  width: 100%;
-  text-align: center;
-  font-size: 1.2em;
-  color: gray;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.5s ease;
-  padding: 10px 20px;
-  display: none;
-}
-
-.prev,
-.next {
-  display: block;
-  opacity: 0.5;
-  font-size: 1em;
-  transform: translateY(0);
-  color: #666;
-}
-
-.active {
-  display: block;
-  opacity: 1;
-  color: white;
-  font-size: 1.6em;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-  transform: translateY(0);
-} 
+    .active {
+      display: block;
+      opacity: 1;
+      color: white;
+      font-size: 1.6em;
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      transform: translateY(0);
+    }
 
     .bottom-controls {
       position: absolute;
@@ -109,18 +140,27 @@
       display: none;
     }
 
+    a {
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
     @media (max-width: 768px) {
       body {
         flex-direction: column;
       }
+
       .left, .right {
-        flex: unset;
         width: 100%;
         height: 50%;
       }
+
       .left img {
         max-width: 90%;
       }
+
       .active {
         font-size: 1.4em;
       }
@@ -128,15 +168,13 @@
   </style>
 </head>
 <body>
-  <nav>
-  </nav>
+
   <div class="left">
-    <img src="darklane.png" alt="Album Art">
+    <img id="albumImage" src="darklane.png" alt="Album Art">
   </div>
 
   <div class="right">
-      <a href="music3.html" style="color: white; text-decoration: none; font-size: 20px;;">Next Song: Call You Mine</a>
-
+    <a href="music3.html">Next Song: Call You Mine</a>
     <div id="lyricsContainer"></div>
     <div class="bottom-controls">
       <span class="overlay-icon" id="toggle">▶</span>
@@ -144,7 +182,6 @@
   </div>
 
   <audio id="audio" src="nyt.mp3"></audio>
-  
 
   <script>
     const audio = document.getElementById('audio');
@@ -153,7 +190,6 @@
     let lyrics = [];
     let currentIndex = 0;
 
-    // Toggle play/pause
     toggleBtn.addEventListener('click', () => {
       if (audio.paused) {
         audio.play();
@@ -164,7 +200,6 @@
       }
     });
 
-    // Load LRC file
     fetch('nyt.lrc')
       .then(res => res.text())
       .then(text => {
@@ -174,7 +209,7 @@
 
           const min = parseInt(match[1]);
           const sec = parseInt(match[2]);
-          const cs = parseInt(match[3].padEnd(2, '0')); // Centiseconds
+          const cs = parseInt(match[3].padEnd(2, '0'));
           const time = min * 60 + sec + cs / 100;
           const content = match[4].trim();
 
@@ -200,27 +235,24 @@
       }
     });
 
+    function updateLyrics(index) {
+      lyrics.forEach((line, i) => {
+        const el = line.element;
+        el.classList.remove('active', 'prev', 'next');
+        el.style.display = 'none';
 
-function updateLyrics(index) {
-  lyrics.forEach((line, i) => {
-    const el = line.element;
-    el.classList.remove('active', 'prev', 'next');
-    el.style.display = 'none';
-
-    if (i === index) {
-      el.style.display = 'block';
-      el.classList.add('active');
-    } else if (i === index - 1) {
-      el.style.display = 'block';
-      el.classList.add('prev');
-    } else if (i === index + 1) {
-      el.style.display = 'block';
-      el.classList.add('next');
+        if (i === index) {
+          el.style.display = 'block';
+          el.classList.add('active');
+        } else if (i === index - 1) {
+          el.style.display = 'block';
+          el.classList.add('prev');
+        } else if (i === index + 1) {
+          el.style.display = 'block';
+          el.classList.add('next');
+        }
+      });
     }
-  });
-}
-
-
   </script>
 
 </body>
