@@ -1,0 +1,31 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#f0f0f0"/>
+  
+  <!-- Shopping bag/cart icon -->
+  <g transform="translate(200, 150)">
+    <!-- Bag body -->
+    <path d="M -40 -10 L -35 -30 Q -35 -40 -25 -40 L 25 -40 Q 35 -40 35 -30 L 40 -10 Z" 
+          fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+    
+    <!-- Bag bottom -->
+    <ellipse cx="0" cy="30" rx="40" ry="15" fill="none" stroke="#000" stroke-width="2"/>
+    
+    <!-- Bag sides -->
+    <path d="M -40 -10 Q -45 10 -40 30" fill="none" stroke="#000" stroke-width="2"/>
+    <path d="M 40 -10 Q 45 10 40 30" fill="none" stroke="#000" stroke-width="2"/>
+    
+    <!-- Handle -->
+    <path d="M -30 -40 Q 0 -60 30 -40" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round"/>
+    
+    <!-- Products inside -->
+    <rect x="-25" y="5" width="15" height="15" fill="none" stroke="#000" stroke-width="1.5"/>
+    <rect x="10" y="5" width="15" height="15" fill="none" stroke="#000" stroke-width="1.5"/>
+    
+    <!-- Price tag -->
+    <circle cx="35" cy="-15" r="8" fill="none" stroke="#000" stroke-width="1.5"/>
+    <line x1="35" y1="-15" x2="35" y2="-15" stroke="#000" stroke-width="1"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="200" y="270" font-size="16" font-weight="600" text-anchor="middle" fill="#333">E-Commerce</text>
+</svg>

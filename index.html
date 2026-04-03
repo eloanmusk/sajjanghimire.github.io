@@ -1,48 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sajjan Ghimire - Home</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sajjan Ghimire - Software Engineer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <nav>
-    <div class="links">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="aloneptiimusic.html">Music</a>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">SG</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact" class="cta-link">Get in Touch</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    </div>
-    <button id="dark-mode-toggle">Toggle Dark Mode</button>
-  </nav>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Software Engineering</h1>
+                <p class="hero-subtitle">Building elegant, efficient solutions for real-world problems</p>
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+            </div>
+            <div class="hero-image">
+                <img src="assets/profile.jpg" alt="Sajjan Ghimire" class="profile-img">
+            </div>
+        </div>
+    </section>
 
-  <main>
-    <h1>Hello, I'm <span class="highlight">Sajjan Ghimire</span>.</h1>
-    <p>
-      I'm a 19-year-old who <strong>loves to code</strong>.<br />
-      Currently pursuing a <strong>Bachelor in Computer Applications (BCA)</strong>.<br />
-      I enjoy building things that live on the internet.
-    </p>
-    <div class="main-links">
-      <a href="about.html">About Me</a>
-      <a href="contact.html">Contact Me</a>
-    </div>
-  </main>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-container">
+            <div class="about-content">
+                <h2>About Me</h2>
+                <p>
+                    I'm <strong>Sajjan Ghimire</strong>, a passionate software engineer and developer with a strong foundation in web development. As a 3rd year student, I'm committed to building scalable, user-friendly applications that solve real-world problems. I specialize in frontend and full-stack development, with expertise in modern web technologies and clean code practices.
+                </p>
+                <p>
+                    I thrive on continuous learning, collaborating with teams, and transforming ideas into functional, beautiful digital products. Whether it's crafting intuitive user interfaces or architecting robust backends, I bring creativity and technical excellence to every project.
+                </p>
+                <div class="skills-grid">
+                    <div class="skill-tag">HTML & CSS</div>
+                    <div class="skill-tag">JavaScript</div>
+                    <div class="skill-tag">PHP</div>
+                    <div class="skill-tag">Web Development</div>
+                    <div class="skill-tag">Problem Solving</div>
+                    <div class="skill-tag">Full-Stack Dev</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <footer>
-    &copy; 2025 Sajjan Ghimire
-    <div class="social-links">
-      <a href="https://linkedin.com/in/sajjanghimire" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-        LinkedIn
-      </a>
-      <a href="https://instagramcom/sajjan0121" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-        Instagram
-      </a>
-    </div>
-  </footer>
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="projects-container">
+            <h2>Featured Projects</h2>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/project1.svg" alt="Tour Package Booking System">
+                    </div>
+                    <div class="project-content">
+                        <h3>Tour Package Booking System</h3>
+                        <p>A comprehensive web application for browsing, searching, and booking tour packages. Features include user authentication, payment integration, and booking management dashboard.</p>
+                        <div class="tech-stack">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>PHP</span>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="link-btn">View Project</a>
+                        </div>
+                    </div>
+                </div>
 
-  <script src="script.js"></script>
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/project2.svg" alt="E-Commerce Platform">
+                    </div>
+                    <div class="project-content">
+                        <h3>E-Commerce Product Platform</h3>
+                        <p>A dynamic product catalog with advanced filtering, search functionality, and shopping cart system. Includes responsive design, product reviews, and inventory management.</p>
+                        <div class="tech-stack">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                            <span>PHP</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="link-btn">View Project</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/project3.svg" alt="Task Management App">
+                    </div>
+                    <div class="project-content">
+                        <h3>Task Management Dashboard</h3>
+                        <p>A modern task management application with drag-and-drop functionality, priority levels, and deadline tracking. Features real-time updates and intuitive user interface.</p>
+                        <div class="tech-stack">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                            <span>DOM APIs</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="link-btn">View Project</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/project4.svg" alt="Weather Application">
+                    </div>
+                    <div class="project-content">
+                        <h3>Real-Time Weather Application</h3>
+                        <p>A weather app that fetches real-time data from APIs, displays current conditions, forecasts, and multi-location support. Built with clean architecture and error handling.</p>
+                        <div class="tech-stack">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                            <span>APIs</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="link-btn">View Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-container">
+            <h2>Let's Work Together</h2>
+            <p>I'm always interested in hearing about new projects and opportunities.</p>
+            <a href="mailto:oksajjan@gmail.com" class="btn btn-primary btn-lg">Get in Touch</a>
+            <div class="contact-info">
+                <p>Email: <a href="mailto:oksajjan@gmail.com">oksajjan@gmail.com</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Sajjan Ghimire. All rights reserved.</p>
+            <p>Designed & Built with precision</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,31 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#f0f0f0"/>
+  
+  <!-- Building/Package Icon -->
+  <g transform="translate(200, 150)">
+    <!-- Main building -->
+    <rect x="-50" y="-40" width="100" height="80" fill="none" stroke="#000" stroke-width="2"/>
+    
+    <!-- Windows -->
+    <rect x="-40" y="-30" width="15" height="15" fill="none" stroke="#000" stroke-width="1.5"/>
+    <rect x="-15" y="-30" width="15" height="15" fill="none" stroke="#000" stroke-width="1.5"/>
+    <rect x="10" y="-30" width="15" height="15" fill="none" stroke="#000" stroke-width="1.5"/>
+    
+    <rect x="-40" y="-5" width="15" height="15" fill="none" stroke="#000" stroke-width="1.5"/>
+    <rect x="-15" y="-5" width="15" height="15" fill="none" stroke="#000" stroke-width="1.5"/>
+    <rect x="10" y="-5" width="15" height="15" fill="none" stroke="#000" stroke-width="1.5"/>
+    
+    <!-- Door -->
+    <rect x="-8" y="20" width="16" height="25" fill="none" stroke="#000" stroke-width="2"/>
+    <circle cx="-2" cy="32" r="2" fill="#000"/>
+    
+    <!-- Roof -->
+    <polygon points="-60,-40 0,-60 60,-40" fill="none" stroke="#000" stroke-width="2"/>
+    
+    <!-- Decorative elements -->
+    <circle cx="0" cy="-70" r="3" fill="#000"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="200" y="270" font-size="16" font-weight="600" text-anchor="middle" fill="#333">Tour Booking</text>
+</svg>

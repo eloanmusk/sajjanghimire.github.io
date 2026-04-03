@@ -1,0 +1,33 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#f0f0f0"/>
+  
+  <!-- Weather elements -->
+  <g transform="translate(200, 150)">
+    <!-- Sun -->
+    <circle cx="-30" cy="-35" r="15" fill="none" stroke="#000" stroke-width="2"/>
+    <line x1="-30" y1="-55" x2="-30" y2="-65" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+    <line x1="-30" y1="-15" x2="-30" y2="-5" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+    <line x1="-10" y1="-35" x2="0" y2="-35" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+    <line x1="-50" y1="-35" x2="-60" y2="-35" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+    
+    <!-- Temperature display -->
+    <text x="-30" y="-35" font-size="18" font-weight="700" text-anchor="middle" dominant-baseline="middle" fill="#000">28</text>
+    <text x="-10" y="-35" font-size="12" font-weight="600" fill="#000">°C</text>
+    
+    <!-- Cloud -->
+    <path d="M 10 -30 Q 15 -40 25 -40 Q 35 -35 35 -25 Q 40 -20 40 -15 Q 35 -5 25 -5 L 10 -5 Q 5 -10 10 -30" 
+          fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+    
+    <!-- Raindrops -->
+    <line x1="15" y1="10" x2="15" y2="25" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="25" y1="15" x2="25" y2="30" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="35" y1="10" x2="35" y2="25" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+    
+    <!-- Weather info -->
+    <text x="0" y="45" font-size="12" font-weight="500" text-anchor="middle" fill="#666">Partly Cloudy</text>
+    <text x="0" y="60" font-size="11" font-weight="400" text-anchor="middle" fill="#999">Humidity: 65%</text>
+  </g>
+  
+  <!-- Text -->
+  <text x="200" y="270" font-size="16" font-weight="600" text-anchor="middle" fill="#333">Weather App</text>
+</svg>
